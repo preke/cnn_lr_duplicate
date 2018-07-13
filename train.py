@@ -181,6 +181,7 @@ def eval_test(data_iter, model, args):
                                                                        corrects, 
                                                                        size))
     tmp = pd.DataFrame()
+    print sim_list
     tmp['sim'] = sim_list.data.cpu().numpy()
     tmp['label'] = tar_list.data.cpu().numpy()
     tmp['pair_id'] = id_list.data.cpu().numpy()
