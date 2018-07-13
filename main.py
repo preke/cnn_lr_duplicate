@@ -62,15 +62,11 @@ if 1 == 1:
     issue2_field.build_vocab(train_data, dev_data, test_data)
     label_field.build_vocab(train_data, dev_data, test_data)
     pairid_field.build_vocab(train_data, dev_data, test_data)
-    print(len(train_data), len(dev_data), args.batch_size)
+    print(len(train_data), len(dev_data), len(test_data))
     train_iter, dev_iter, test_iter = data.Iterator.splits(
                                 (train_data, dev_data, test_data), 
-                                batch_sizes=(args.batch_size, len(dev_data), len(test_data)),device=0, repeat=False)
-    cnt = 0
-    for batch in train_iter:
-        print(cnt)
-        cnt += 1
-        continue
+                                batch_sizes=(args.batch_size, len(dev_data), len(test_data)), device=0, repeat=False)
+    
     args.embed_num = len(issue1_field.vocab) + len(issue2_field.vocab)
     args.class_num = len(label_field.vocab) - 1
 
@@ -111,40 +107,6 @@ if 1 == 1:
         train.eval_test(test_iter, cnn, args) 
     except:
         print('test_wrong')
-    '''
-    count = 0
-    acc = 0
-    tp = 0
-    pred_p = 0
-    real_p = 0
-    with open('models/mapreduce/cnn_test_new.csv') as f:
-        for line in f.readlines():
-            if count == 0:
-                count += 1
-                continue
-            try:
-                label = train.predict(line, cnn, issue1_field, issue2_field, label_field, args.cuda)
-                if label >= 0.5:
-                    if line.split(',')[3].strip() == '1.0':
-                        acc += 1
-                        tp += 1
-                    pred_p += 1
-                elif (label < 0.5) & (line.split(',')[3].strip()  == '0.0'):
-                    acc += 1
-                count += 1
-                if line.split(',')[3].strip() == '1.0':
-                    real_p += 1 
-            except:
-                print(line.split(',')[0], line)
-                # print(traceback.print_exc())
-            # count += 1
-    # print(acc)
-    # print(count)
-    print('acc: {:.6f}'.format(float(acc)/count))
-    p = float(tp)/pred_p
-    r = float(tp)/real_p
-    print('f1: {:.6f}'.format(2*p*r/(p+r)))
     
-    '''
     
 
