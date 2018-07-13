@@ -181,9 +181,9 @@ def eval_test(data_iter, model, args):
                                                                        corrects, 
                                                                        size))
     tmp = pd.DataFrame()
-    print(sim_list)
-    print('+++')
-    print(sim_list.cpu().numpy())
+    # print(sim_list)
+    # print('+++')
+    # print(sim_list.cpu().numpy())
     print('===')
     print([i.cpu().numpy() for i in sim_list])
     tmp['sim'] = sim_list.cpu().numpy()
