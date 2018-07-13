@@ -181,9 +181,9 @@ def eval_test(data_iter, model, args):
                                                                        corrects, 
                                                                        size))
     tmp = pd.DataFrame()
-    tmp['sim'] = sim_list
-    tmp['label'] = tar_list
-    tmp['pair_id'] = id_list
+    tmp['sim'] = sim_list.data.cpu().numpy()
+    tmp['label'] = tar_list.data.cpu().numpy()
+    tmp['pair_id'] = id_list.data.cpu().numpy()
     tmp.to_csv('models/mapreduce/456_sim.csv')
     # tmp.to_csv('models/spark/spark_'+str(args.kernel_sizes)+str(args.kernel_num)+'_.csv')
     cnt = 0
