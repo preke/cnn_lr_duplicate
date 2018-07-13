@@ -181,10 +181,14 @@ def eval_test(data_iter, model, args):
                                                                        corrects, 
                                                                        size))
     tmp = pd.DataFrame()
-    print sim_list
-    tmp['sim'] = sim_list.data.cpu().numpy()
-    tmp['label'] = tar_list.data.cpu().numpy()
-    tmp['pair_id'] = id_list.data.cpu().numpy()
+    print(sim_list)
+    print('+++')
+    print(sim_list.cpu().numpy())
+    print('===')
+    print([i.cpu().numpy() for i in sim_list])
+    tmp['sim'] = sim_list.cpu().numpy()
+    tmp['label'] = tar_list.cpu().numpy()
+    tmp['pair_id'] = id_list.cpu().numpy()
     tmp.to_csv('models/mapreduce/456_sim.csv')
     # tmp.to_csv('models/spark/spark_'+str(args.kernel_sizes)+str(args.kernel_num)+'_.csv')
     cnt = 0
