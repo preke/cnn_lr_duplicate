@@ -99,5 +99,16 @@ def load_data(data_path):
     vali_set = pd.concat([df_pairs_neg.iloc[range(int((ratios[1] + ratios[0])*len(df_pairs_neg)), len(df_pairs_neg))],df_pairs_pos.iloc[range(int((ratios[1] + ratios[0])*len(df_pairs_pos)), len(df_pairs_pos))]])
     return train_set, test_set, vali_set
 
+
+def load_glove_as_dict(filepath):
+    word_vec = {}
+    with open(filepath) as fr:
+        for line in fr:
+            line = line.split()
+            word = line[0]
+            vec = line[1:]
+            word_vec[word] = vec
+    return word_vec
+
 if __name__ == '__main__':
      load_data('../mapreduce/mapreduce.csv')    

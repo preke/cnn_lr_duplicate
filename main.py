@@ -5,7 +5,7 @@ import torch
 import torchtext.data as data
 import torchtext.datasets as datasets
 import argparse
-from load_data import load_data
+from load_data import load_data, load_glove_as_dict
 
 import mydatasets
 import os
@@ -13,6 +13,9 @@ import datetime
 import traceback
 import model
 import train
+
+
+
 
 if 1 == 1:
     parser = argparse.ArgumentParser(description='')
@@ -70,6 +73,12 @@ if 1 == 1:
         continue
     args.embed_num = len(issue1_field.vocab) + len(issue2_field.vocab)
     args.class_num = len(label_field.vocab) - 1
+
+    # add
+    glove_path = 'wordvec.txt'
+    embedding_dict = load_glove_as_dict(glove_path)
+    # add_end
+
     args.cuda = (not args.no_cuda) and torch.cuda.is_available(); del args.no_cuda
     args.kernel_sizes = [int(k) for k in args.kernel_sizes.split(',')]
     args.save_dir = os.path.join(args.save_dir, datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
