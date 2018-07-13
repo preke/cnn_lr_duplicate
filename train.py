@@ -94,7 +94,7 @@ def train(train_iter, dev_iter, model, args):
                         print('early stop by {} steps.'.format(args.early_stop))
                 #
             elif steps % args.save_interval == 0:
-                print('save loss: %s' %str(loss.data))
+                # print('save loss: %s' %str(loss.data))
                 save(model, args.save_dir, 'snapshot', steps)
 
 

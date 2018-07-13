@@ -65,7 +65,7 @@ if 1 == 1:
     print(len(train_data), len(dev_data), args.batch_size)
     train_iter, dev_iter, test_iter = data.Iterator.splits(
                                 (train_data, dev_data, test_data), 
-                                batch_sizes=(args.batch_size, len(dev_data), len(test_data)),device=-1, repeat=False)
+                                batch_sizes=(args.batch_size, len(dev_data), len(test_data)),device=0, repeat=False)
     cnt = 0
     for batch in train_iter:
         print(cnt)
