@@ -13,11 +13,38 @@ import datetime
 import traceback
 import model
 import train
+import pickle
+from gensim.models import Word2Vec
+import jieba
 
 
+
+def train_word2vec_model(df):
+    '''
+    basic w2v model trained by sentences
+    '''
+    corpus = []
+    for i, r in df.iterrows():
+        try:
+            corpus.append(jieba.lcut(r['Title']))
+            # print jieba.lcut(r['ques1'])
+            corpus.append(jieba.lcut(r['Description']))
+        except:
+            pass
+            # print('Exception: ', r['ques1']
+    word2vec_model = Word2Vec(corpus, size=300, window=3, min_count=1, sg=0, iter=100)
+    return word2vec_model
 
 
 if 1 == 1:
+    data_path = '../mapreduce/mapreduce.csv'
+    df = pd.read_csv(data_path, encoding = 'gb18030')
+    word2vec_model = train_word2vec_model(df)
+    word2vec_model.save('mr_w2v.save')
+
+
+
+
     parser = argparse.ArgumentParser(description='')
     # learning
     parser.add_argument('-lr', type=float, default=0.005, help='initial learning rate [default: 0.001]')
@@ -72,8 +99,8 @@ if 1 == 1:
 
     # add
     glove_path = 'wordvec.txt'
-    embedding_dict = load_glove_as_dict(glove_path)
-    
+    # embedding_dict = load_glove_as_dict(glove_path)
+    embedding_dict = Word2Vec.load('mr_w2v.save')
     word_vec_list = []
     for idx, word in enumerate(issue1_field.vocab.itos):
         try:
