@@ -189,7 +189,7 @@ def eval_test(data_iter, model, args):
     tmp['sim'] = [float(i) for i in sim_list]
     tmp['label'] = [float(i) for i in tar_list]
     tmp['pair_id'] = [int(i) for i in id_list]
-    tmp.to_csv('models/spark/456_sim.csv')
+    tmp.to_csv('models/hdfs/456_sim.csv')
     # tmp.to_csv('models/spark/spark_'+str(args.kernel_sizes)+str(args.kernel_num)+'_.csv')
     cnt = 0
     for i,r in tmp.iterrows():
