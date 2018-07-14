@@ -37,10 +37,10 @@ def train_word2vec_model(df):
 
 
 if 1 == 1:
-    data_path = '../hdfs/hdfs.csv'
+    data_path = '../hadoop/hadoop.csv'
     df = pd.read_csv(data_path, encoding = 'gb18030')
     word2vec_model = train_word2vec_model(df)
-    word2vec_model.save('hdfs_w2v.save')
+    word2vec_model.save('hadoop_w2v.save')
 
 
 
@@ -100,7 +100,7 @@ if 1 == 1:
     # add
     glove_path = 'wordvec.txt'
     # embedding_dict = load_glove_as_dict(glove_path)
-    embedding_dict = Word2Vec.load('hdfs_w2v.save')
+    embedding_dict = Word2Vec.load('hadoop_w2v.save')
     word_vec_list = []
     for idx, word in enumerate(issue1_field.vocab.itos):
         try:
