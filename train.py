@@ -185,7 +185,7 @@ def eval_test(data_iter, model, args):
     # print('+++')
     # print(sim_list.cpu().numpy())
     print('===')
-    print([i.data.cpu() for i in sim_list])
+    print([i.data.cpu().numpy()[0] for i in sim_list])
     tmp['sim'] = sim_list.cpu().numpy()
     tmp['label'] = tar_list.cpu().numpy()
     tmp['pair_id'] = id_list.cpu().numpy()
