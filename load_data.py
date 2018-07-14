@@ -13,6 +13,7 @@ from datetime import datetime
 import pickle
 from gensim.models import Word2Vec
 import jieba
+import traceback
 
 def times_window(t1, t2):
     t1 = pd.to_datetime(t1)
