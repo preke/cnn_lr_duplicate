@@ -76,8 +76,8 @@ class MR(TarDataset):
         fields = [('issue1', issue1_field), ('issue2', issue2_field), ('label', label_field), ('pairid', pairid_field)]
 
         if examples is None:
-            # path = '../spark/'
-            path = '../mapreduce/'
+            path = '../spark/'
+            # path = '../mapreduce/'
             examples = []
             count = 0
             #'''
