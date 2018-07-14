@@ -186,9 +186,9 @@ def eval_test(data_iter, model, args):
     # print(sim_list.cpu().numpy())
     # print('===')
     # print([i.data.cpu().squeeze() for i in sim_list])
-    tmp['sim'] = sim_list.float()
-    tmp['label'] = tar_list.float()
-    tmp['pair_id'] = id_list.int()
+    tmp['sim'] = [float(i) for i in sim_list]
+    tmp['label'] = [float(i) for i in tar_list]
+    tmp['pair_id'] = [int(i) for i in id_list]
     tmp.to_csv('models/mapreduce/456_sim.csv')
     # tmp.to_csv('models/spark/spark_'+str(args.kernel_sizes)+str(args.kernel_num)+'_.csv')
     cnt = 0
