@@ -10,6 +10,9 @@ import tarfile
 import urllib
 from torchtext import data
 from datetime import datetime
+import pickle
+from gensim.models import Word2Vec
+import jieba
 
 def times_window(t1, t2):
     t1 = pd.to_datetime(t1)
@@ -20,10 +23,27 @@ def times_window(t1, t2):
     else:
         return 0
 
+def train_word2vec_model(df):
+    '''
+    basic w2v model trained by sentences
+    '''
+    corpus = []
+    for i, r in df.iterrows():
+        try:
+            corpus.append(jieba.lcut(r['Title']))
+            # print jieba.lcut(r['ques1'])
+            corpus.append(jieba.lcut(r['Description']))
+        except:
+            print 'Exception: ', r['ques1']
+    word2vec_model = Word2Vec(corpus, size=300, window=3, min_count=1, sg=0, iter=100)
+    return word2vec_model
+
 def load_data(data_path):
     #
     # df = pd.read_csv(open(data_path, 'rU'))
     df = pd.read_csv(data_path, encoding = 'gb18030')
+    word2vec_model = train_word2vec_model(df)
+    word2vec_model.save('mr_w2v.save')
     df['Duplicate_null'] = df['Duplicated_issue'].apply(lambda x : pd.isnull(x))
     
     # prep = Preprocess()
