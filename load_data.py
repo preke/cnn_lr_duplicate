@@ -43,8 +43,7 @@ def load_data(data_path):
     #
     # df = pd.read_csv(open(data_path, 'rU'))
     df = pd.read_csv(data_path, encoding = 'gb18030')
-    word2vec_model = train_word2vec_model(df)
-    word2vec_model.save('mr_w2v.save')
+    
     df['Duplicate_null'] = df['Duplicated_issue'].apply(lambda x : pd.isnull(x))
     
     # prep = Preprocess()
@@ -110,8 +109,8 @@ def load_data(data_path):
     df_pairs_pos['Title_2'].apply(lambda x: str(' '.join(x)))
     '''
     '''
-    df_pairs_neg.to_csv('../../lr/mapreduce/neg.csv', )#index=False, header=False)
-    df_pairs_pos.to_csv('../../lr/mapreduce/pos.csv', )#index=False, header=False)
+    df_pairs_neg.to_csv('../../lr/spark/neg.csv', )#index=False, header=False)
+    df_pairs_pos.to_csv('../../lr/spark/pos.csv', )#index=False, header=False)
     '''
     '''
     ratios = [0.7, 0.1, 0.2]
@@ -132,4 +131,4 @@ def load_glove_as_dict(filepath):
     return word_vec
 
 if __name__ == '__main__':
-     load_data('../mapreduce/mapreduce.csv')    
+     load_data('../spark/spark.csv')    
