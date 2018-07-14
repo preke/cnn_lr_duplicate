@@ -73,6 +73,16 @@ if 1 == 1:
     # add
     glove_path = 'wordvec.txt'
     embedding_dict = load_glove_as_dict(glove_path)
+    
+    word_vec_list = []
+    for idx, word in enumerate(text_field.vocab.itos):
+        try:
+            vector = np.array(embedding_dict[word], dtype=float).reshape(1, args.embed_dim)
+        except:
+            vector = np.random.rand(1, args.embed_dim)
+        word_vec_list.append(torch.from_numpy(vector))
+    wordvec_matrix = torch.cat(word_vec_list)
+    args.pretrained_weight = wordvec_matrix
     # add_end
 
     args.cuda = (not args.no_cuda) and torch.cuda.is_available(); del args.no_cuda
