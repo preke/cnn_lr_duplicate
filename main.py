@@ -75,7 +75,13 @@ if 1 == 1:
     embedding_dict = load_glove_as_dict(glove_path)
     
     word_vec_list = []
-    for idx, word in enumerate(text_field.vocab.itos):
+    for idx, word in enumerate(issue1_field.vocab.itos):
+        try:
+            vector = np.array(embedding_dict[word], dtype=float).reshape(1, args.embed_dim)
+        except:
+            vector = np.random.rand(1, args.embed_dim)
+        word_vec_list.append(torch.from_numpy(vector))
+    for idx, word in enumerate(issue2_field.vocab.itos):
         try:
             vector = np.array(embedding_dict[word], dtype=float).reshape(1, args.embed_dim)
         except:
